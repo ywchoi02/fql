@@ -88,7 +88,7 @@ class FrameStackWrapper(gymnasium.Wrapper):
         return self.get_observation(), reward, terminated, truncated, info
 
 
-def make_env_and_datasets(env_name, frame_stack=None, action_clip_eps=1e-5):
+def make_env_and_datasets(env_name, demo_dataset_path: str, num_demos: int = -1, frame_stack=None, action_clip_eps=1e-5):
     """Make offline RL environment and datasets.
 
     Args:
@@ -124,6 +124,26 @@ def make_env_and_datasets(env_name, frame_stack=None, action_clip_eps=1e-5):
         env = d4rl_utils.make_env(env_name)
         eval_env = d4rl_utils.make_env(env_name)
         dataset = d4rl_utils.get_dataset(env, env_name)
+        train_dataset, val_dataset = dataset, None
+    elif env_name in (
+        "PushCube-v1",
+        "PickCube-v1",
+        "StackCube-v1",
+        "PegInsertionSide-v1",
+        "PushT-v1",
+        "PickSingleYCB-v1",
+    ):
+        # ManiSkill3
+        from envs import maniskill_utils
+
+        env = maniskill_utils.make_env(env_name)
+        eval_env = maniskill_utils.make_env(env_name)
+        dataset = maniskill_utils.get_dataset(
+            demo_dataset_path=demo_dataset_path,
+            num_demos=num_demos,
+            shuffle=True,
+            rng=0,
+        )
         train_dataset, val_dataset = dataset, None
     else:
         raise ValueError(f'Unsupported environment: {env_name}')
