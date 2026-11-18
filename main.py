@@ -66,6 +66,7 @@ def main(_):
         demo_dataset_path=FLAGS.demo_dataset_path,
         num_demos=FLAGS.num_demos,
         frame_stack=FLAGS.frame_stack,
+        seed=FLAGS.seed,
     )
     if FLAGS.video_episodes > 0:
         assert 'singletask' in FLAGS.env_name, 'Rendering is currently only supported for OGBench environments.'
