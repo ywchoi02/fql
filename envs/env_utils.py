@@ -88,7 +88,7 @@ class FrameStackWrapper(gymnasium.Wrapper):
         return self.get_observation(), reward, terminated, truncated, info
 
 
-def make_env_and_datasets(env_name, demo_dataset_path: str | None = None, num_demos: int = -1, frame_stack=None, action_clip_eps=1e-5):
+def make_env_and_datasets(env_name, demo_dataset_path: str | None = None, num_demos: int = -1, frame_stack=None, action_clip_eps=1e-5, seed: int = 0):
     """Make offline RL environment and datasets.
 
     Args:
@@ -142,7 +142,7 @@ def make_env_and_datasets(env_name, demo_dataset_path: str | None = None, num_de
             demo_dataset_path=demo_dataset_path,
             num_demos=num_demos,
             shuffle=True,
-            rng=0,
+            rng=seed,
         )
         train_dataset, val_dataset = dataset, None
     else:
