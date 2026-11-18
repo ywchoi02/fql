@@ -42,7 +42,7 @@ flags.DEFINE_integer('video_frame_skip', 3, 'Frame skip for videos.')
 flags.DEFINE_float('p_aug', None, 'Probability of applying image augmentation.')
 flags.DEFINE_integer('frame_stack', None, 'Number of frames to stack.')
 flags.DEFINE_integer('balanced_sampling', 0, 'Whether to use balanced sampling for online fine-tuning.')
-flags.DEFINE_integer('demo_dataset_path', None, 'Path to demonstration dataset.')
+flags.DEFINE_string('demo_dataset_path', None, 'Path to demonstration dataset.')
 flags.DEFINE_integer('num_demos', -1, 'Number of demonstrations to use.')
 
 config_flags.DEFINE_config_file('agent', 'agents/fql.py', lock_config=False)
