@@ -88,7 +88,7 @@ class FrameStackWrapper(gymnasium.Wrapper):
         return self.get_observation(), reward, terminated, truncated, info
 
 
-def make_env_and_datasets(env_name, demo_dataset_path: str, num_demos: int = -1, frame_stack=None, action_clip_eps=1e-5):
+def make_env_and_datasets(env_name, num_demos: int = -1, frame_stack=None, action_clip_eps=1e-5):
     """Make offline RL environment and datasets.
 
     Args:
@@ -139,7 +139,7 @@ def make_env_and_datasets(env_name, demo_dataset_path: str, num_demos: int = -1,
         env = maniskill_utils.make_env(env_name)
         eval_env = maniskill_utils.make_env(env_name)
         dataset = maniskill_utils.get_dataset(
-            demo_dataset_path=demo_dataset_path,
+            demo_dataset_path=f"/ywchoi-fast-vol/demos/maniskill3/{env_name}/rl/trajectory.h5",
             num_demos=num_demos,
             shuffle=True,
             rng=0,
