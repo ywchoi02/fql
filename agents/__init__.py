@@ -1,3 +1,4 @@
+from agents.bc import BCAgent
 from agents.fql import FQLAgent
 from agents.ifql import IFQLAgent
 from agents.iql import IQLAgent
@@ -5,6 +6,7 @@ from agents.rebrac import ReBRACAgent
 from agents.sac import SACAgent
 
 agents = dict(
+    bc=BCAgent,
     fql=FQLAgent,
     ifql=IFQLAgent,
     iql=IQLAgent,
