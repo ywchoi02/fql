@@ -127,10 +127,11 @@ def get_dataset(
         actions = demo["actions"][:]
         rewards = demo["rewards"][:]
         next_observations = demo["obs"][1:]
-        terminateds = demo["terminated"][:]
+        # terminateds = demo["terminated"][:]
+        terminateds = np.zeros_like(rewards, dtype=bool)  # ignore_terminations=True
         truncateds = demo["truncated"][:]
         terminals = (terminateds | truncateds).astype(np.float32)
-        masks = 1.0 - terminateds
+        masks = np.ones_like(rewards)
 
         all_observations.append(observations)
         all_actions.append(actions)
@@ -142,6 +143,8 @@ def get_dataset(
         load_count += 1
         if load_count >= num_demos:
             break
+    
+    print(f"{load_count} demonstrations loaded.")
 
     return Dataset.create(
         observations=np.concatenate(all_observations, dtype=np.float32),
